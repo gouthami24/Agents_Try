@@ -91,12 +91,5 @@ if __name__ == '__main__':
         chat_history.append(HumanMessage(content=user_input))
         chat_history.append(AIMessage(content=response))
       
-       # Function to display chat history
-        def display_chat_history():
-             for chat in st.session_state.chat_history:
-                 st.write(f"{chat['user']}: {chat['message']}")
-
-      # Display the chat history
-        display_chat_history()
         #st.write(chat_history["content"])
         st.write("Assistant:", response)
