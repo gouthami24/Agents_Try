@@ -9,3 +9,6 @@ scikit-learn
 langchain_text_splitters
 beautifulsoup4
 python-dotenv
+os
+load_dotenv
+find_dotenv
