@@ -1,4 +1,4 @@
-import os
+#import os
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
@@ -30,14 +30,14 @@ splitter = RecursiveCharacterTextSplitter(
 )
 splitDocs = splitter.split_documents(docs)
 
-embedding = OpenAIEmbeddings(api_key = openapikey)
+embedding = OpenAIEmbeddings(api_key = openai_api_key)
 vectorStore = FAISS.from_documents(docs, embedding=embedding)
 retriever = vectorStore.as_retriever(search_kwargs={"k": 3})
 
 model = ChatOpenAI(
     model='gpt-3.5-turbo-1106',
     temperature=0.7,
-    api_key = openapikey
+    api_key = openai_api_key
 )
 
 prompt = ChatPromptTemplate.from_messages([
