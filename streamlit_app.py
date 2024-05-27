@@ -82,7 +82,7 @@ if __name__ == '__main__':
     chat_history = []
 
     while True:
-        user_input = st.textinput("You: ")
+        user_input = st.text_input("You: ")
         if user_input.lower() == 'exit':
             break
 
