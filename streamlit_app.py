@@ -16,6 +16,9 @@ from langchain_community.tools.tavily_search import TavilySearchResults
 openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 
+if not openai_api_key.startswith('sk-'):
+   st.warning('Please enter your OpenAI API key!', icon='⚠')
+
 
 # Create Retriever
 loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
