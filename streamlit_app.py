@@ -87,9 +87,19 @@ if __name__ == '__main__':
     chat_history = []
     # st.text_input("Enter text here", key="widget", on_change=submit)
 
-    prompt = st.chat_input("Say something")
-    if prompt:
-       st.write(f"User has sent the following prompt: {prompt}")
+    user_input = st.chat_input("Say something")
+    if user_input:
+       st.write(f"You: {user_input}")
+       if user_input.lower() == 'exit':
+           break
+       response = process_chat(agentExecutor, user_input, chat_history)
+       chat_history.append(HumanMessage(content=user_input))
+       chat_history.append(AIMessage(content=response))
+       print(HumanMessage(content=user_input))
+       print(AIMessage(content=response))
+       #st.write(chat_history["content"])
+       st.write("Assistant:", response)
+
    
     # while True:
     #    if "my_text" not in st.session_state:
