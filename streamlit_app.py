@@ -85,13 +85,17 @@ def submit():
    
 if __name__ == '__main__':
     chat_history = []
-    st.text_input("Enter text here", key="widget", on_change=submit)
+    # st.text_input("Enter text here", key="widget", on_change=submit)
 
-    while True:
-       if "my_text" not in st.session_state:
-          st.session_state.my_text = ""
-       my_text = st.session_state.my_text
-       st.write(my_text)
+    prompt = st.chat_input("Say something")
+    while prompt:
+       st.write(f"User has sent the following prompt: {prompt}")
+   
+    # while True:
+    #    if "my_text" not in st.session_state:
+    #       st.session_state.my_text = ""
+    #    my_text = st.session_state.my_text
+    #    st.write(my_text)
 
     # while True:
     #     user_input = st.text_input("You: ")
