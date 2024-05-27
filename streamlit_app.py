@@ -91,12 +91,10 @@ if __name__ == '__main__':
     if user_input:
        st.write(f"You: {user_input}")
        if user_input.lower() == 'exit':
-           break
+           st.write("Thank you, bye!")
        response = process_chat(agentExecutor, user_input, chat_history)
        chat_history.append(HumanMessage(content=user_input))
        chat_history.append(AIMessage(content=response))
-       print(HumanMessage(content=user_input))
-       print(AIMessage(content=response))
        #st.write(chat_history["content"])
        st.write("Assistant:", response)
 
