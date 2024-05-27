@@ -12,3 +12,4 @@ python-dotenv
 os
 load_dotenv
 find_dotenv
+python 3.8
