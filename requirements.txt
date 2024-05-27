@@ -1,0 +1,11 @@
+streamlit
+openai 
+langchain 
+langchain_openai
+faiss-cpu
+langchain_core
+langchain_community
+scikit-learn
+langchain_text_splitters
+beautifulsoup4
+python-dotenv
