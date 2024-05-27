@@ -76,7 +76,7 @@ def process_chat(agentExecutor, user_input, chat_history):
         "input": user_input,
         "chat_history": chat_history
     })
-    st.write("Response:",response["output"])
+    #st.write("Response:",response["output"])
     return response["output"]
 
 if __name__ == '__main__':
@@ -90,5 +90,5 @@ if __name__ == '__main__':
         response = process_chat(agentExecutor, user_input, chat_history)
         chat_history.append(HumanMessage(content=user_input))
         chat_history.append(AIMessage(content=response))
-
+        st.write(chat_history)
         st.write("Assistant:", response)
