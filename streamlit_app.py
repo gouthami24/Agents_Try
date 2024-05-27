@@ -88,7 +88,7 @@ if __name__ == '__main__':
     # st.text_input("Enter text here", key="widget", on_change=submit)
 
     prompt = st.chat_input("Say something")
-    while prompt:
+    if prompt:
        st.write(f"User has sent the following prompt: {prompt}")
    
     # while True:
