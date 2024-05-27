@@ -19,6 +19,9 @@ tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 if not openai_api_key.startswith('sk-'):
    st.warning('Please enter your OpenAI API key!', icon='⚠')
 
+if not tavily_api_key.startswith('tvly-'):
+   st.warning('Please enter your Tavily API key!', icon='⚠')
+
 
 # Create Retriever
 loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
