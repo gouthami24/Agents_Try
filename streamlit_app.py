@@ -15,7 +15,7 @@ from langchain.tools.retriever import create_retriever_tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
 openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
-#tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
+tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 
 if not openai_api_key.startswith('sk-'):
    st.warning('Please enter your OpenAI API key!', icon='⚠')
@@ -56,7 +56,7 @@ prompt = ChatPromptTemplate.from_messages([
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
 
-#search = TavilySearchResults()
+search = TavilySearchResults()
 
 retriever_tools = create_retriever_tool(
     retriever,
@@ -82,13 +82,11 @@ def process_chat(agentExecutor, user_input, chat_history):
         "input": user_input,
         "chat_history": chat_history
     })
-    #st.write("Response:",response["output"])
     return response["output"]
    
 if __name__ == '__main__':
     chat_history = []
-    # st.text_input("Enter text here", key="widget", on_change=submit)
-
+    
 # Initialize chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
