@@ -57,6 +57,7 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 search = TavilySearchResults()
+st.write(search)
 
 retriever_tools = create_retriever_tool(
     retriever,
