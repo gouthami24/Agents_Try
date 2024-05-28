@@ -101,10 +101,10 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
 # Accept user input
    if user_input := st.chat_input("What is up?"):
     # Add user message to chat history
-       st.session_state.chat_history.append({"role": "user", "content": user_input})
-       response = process_chat(agentExecutor, user_input, chat_history)
-       st.session_state.chat_history.append(HumanMessage(content=user_input))
-       st.session_state.chat_history.append(AIMessage(content=response))
+      st.session_state.chat_history.append({"role": "user", "content": user_input})
+      response = process_chat(agentExecutor, user_input, chat_history)
+      st.session_state.chat_history.append(HumanMessage(content=user_input))
+      st.session_state.chat_history.append(AIMessage(content=response))
       
     # Display user message in chat message container
        with st.chat_message("user"):
@@ -121,4 +121,4 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
                 stream=True,
             )
             response = st.write_stream(stream)
-     st.session_state.messages.append({"role": "assistant", "content": response})
+   st.session_state.messages.append({"role": "assistant", "content": response})
