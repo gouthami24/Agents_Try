@@ -20,9 +20,9 @@ tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 if not openai_api_key.startswith('sk-'):
    st.warning('Please enter your OpenAI API key!', icon='⚠')
 
-#if not tavily_api_key.startswith('tvly-'):
-#   st.warning('Please enter your Tavily API key!', icon='⚠')
-#st.write("Your API Key is ",openai_api_key)
+if not tavily_api_key.startswith('tvly-'):
+   st.warning('Please enter your Tavily API key!', icon='⚠')
+st.write("Your Tavily API Key is ",tavily_api_key)
 # Set OpenAI API key from Streamlit secrets 
 client = OpenAI(api_key=openai_api_key)
    
