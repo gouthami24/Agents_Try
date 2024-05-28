@@ -84,7 +84,6 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
 
    # Accept user input
    if user_input := st.chat_input("What is up?"):
-    # Add user message to chat history
       response = process_chat(agentExecutor, user_input, st.session_state.chat_history)
       st.session_state.chat_history.append(HumanMessage(content=user_input))
       st.session_state.chat_history.append(AIMessage(content=response))
@@ -94,3 +93,5 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
          st.write(f"You: {message.content}")
        elif isinstance(message, AIMessage):
          st.write(f"Assistant: {message.content}") 
+else 
+   st.warning('Please enter your API Key & Tavily API key!', icon='⚠')
