@@ -51,18 +51,18 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        MessagesPlaceholder(variable_name="agent_scratchpad")
    ])
 
-   st.write("tavily API key" , tavily_api_key)
-   search = TavilySearchResults(api_key = tavily_api_key)
-   search.invoke({"query": "What happened in the latest burning man floods"})
-   st.write("tavily search result" , type(search))
+   #st.write("tavily API key" , tavily_api_key)
+   search = TavilySearchResults(api_key=tavily_api_key)
+   #search.invoke({"query": "What happened in the latest burning man floods"})
+   #st.write("tavily search result" , type(search))
    
    retriever_tools = create_retriever_tool(
        retriever,
        "lcel_search",
        "Use this tool when searching for information about Langchain Expression Language (LCEL)."
    )
-  # tools = [search, retriever_tools]
-   tools = [search]
+   tools = [search, retriever_tools]
+   #tools = [search]
   
    agent = create_openai_functions_agent(
        llm=model,
@@ -80,7 +80,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            "input": user_input,
            "chat_history": chat_history
        })
-       st.write("Process Chat Response" , response)
+       #st.write("Process Chat Response" , response)
        return response["output"]
 
    # Initialize chat history
@@ -88,11 +88,11 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        st.session_state.chat_history = []
 
    # Accept user input
-   if user_input := st.chat_input("What is up?"):
-      response = process_chat(agentExecutor, user_input, st.session_state.chat_history)
-      #st.write("response : ",response)
-      st.session_state.chat_history.append(HumanMessage(content=user_input))
-      st.session_state.chat_history.append(AIMessage(content=response))
+   user_input := st.chat_input("What is up?"):
+   if user_input:
+       response = process_chat(agentExecutor, user_input, st.session_state.chat_history)
+       st.session_state.chat_history.append(HumanMessage(content=user_input))
+       st.session_state.chat_history.append(AIMessage(content=response))
       
    for i, message in enumerate(st.session_state.chat_history):
        if isinstance(message, HumanMessage):
