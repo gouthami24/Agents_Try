@@ -24,12 +24,6 @@ if not tavily_api_key.startswith('tvly-'):
 elif openai_api_key.startswith('sk-') and tavily_api_key:
    os.environ['TAVILY_API_KEY'] = 'tavily_api_key'
 
-# Set OpenAI API key from Streamlit secrets 
-   client = OpenAI(api_key=openai_api_key)
-   
-   if "openai_model" not in st.session_state:
-       st.session_state["openai_model"] = "gpt-3.5-turbo-1106"
-
 # Create Retriever
    loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
    docs = loader.load()
@@ -58,16 +52,14 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    ])
 
    search = TavilySearchResults(api_key=tavily_api_key)
-   #st.write(search)
-
+  
    retriever_tools = create_retriever_tool(
        retriever,
        "lcel_search",
        "Use this tool when searching for information about Langchain Expression Language (LCEL)."
    )
    tools = [search, retriever_tools]
-   #tools = [retriever_tools]
-
+  
    agent = create_openai_functions_agent(
        llm=model,
        prompt=prompt,
@@ -85,11 +77,8 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            "chat_history": chat_history
        })
        return response["output"]
-   
-   if __name__ == '__main__':
-       chat_history = []
-    
-# Initialize chat history
+
+   # Initialize chat history
    if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
