@@ -83,7 +83,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        st.session_state.chat_history = []
 
    # Accept user input
-   user_input := st.chat_input("What is up?"):
+   user_input = st.chat_input("What is up?")
    if user_input:
        response = process_chat(agentExecutor, user_input, st.session_state.chat_history)
        st.session_state.chat_history.append(HumanMessage(content=user_input))
