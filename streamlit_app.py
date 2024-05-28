@@ -1,10 +1,8 @@
 import os
 import streamlit as st
-from openai import OpenAI
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langchain.agents import create_openai_functions_agent, AgentExecutor
-from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.document_loaders import WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
@@ -22,7 +20,7 @@ if not openai_api_key.startswith('sk-'):
 if not tavily_api_key.startswith('tvly-'):
    st.warning('Please enter your Tavily API key!', icon='⚠')
 elif openai_api_key.startswith('sk-') and tavily_api_key:
-   os.environ['TAVILY_API_KEY'] = 'tavily_api_key'
+   os.environ['TAVILY_API_KEY'] = tavily_api_key
 
 # Create Retriever
    loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
