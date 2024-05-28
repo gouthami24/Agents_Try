@@ -13,98 +13,99 @@ from langchain.chains import create_retrieval_chain
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.tools.retriever import create_retriever_tool
 from langchain_community.tools.tavily_search import TavilySearchResults
-from dotenv import load_dotenv, find_dotenv
 
-#_= load_dotenv(find_dotenv())
-#myvar = os.getenv('TAVILY_API_KEY')
 openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
-#print(myvar)
 tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 
 if not openai_api_key.startswith('sk-'):
    st.warning('Please enter your OpenAI API key!', icon='⚠')
-
 if not tavily_api_key.startswith('tvly-'):
    st.warning('Please enter your Tavily API key!', icon='⚠')
+elif openai_api_key.startswith('sk-') and tavily_api_key:
+   os.environ['TAVILY_API_KEY'] = 'tavily_api_key'
 
 # Set OpenAI API key from Streamlit secrets 
-client = OpenAI(api_key=openai_api_key)
+   client = OpenAI(api_key=openai_api_key)
    
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
+   if "openai_model" not in st.session_state:
+       st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 # Create Retriever
-loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
-docs = loader.load()
+   loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
+   docs = loader.load()
 
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=200,
-    chunk_overlap=20
-)
-splitDocs = splitter.split_documents(docs)
+   splitter = RecursiveCharacterTextSplitter(
+       chunk_size=200,
+       chunk_overlap=20
+   )
+   splitDocs = splitter.split_documents(docs)
 
-embedding = OpenAIEmbeddings(api_key = openai_api_key)
-vectorStore = FAISS.from_documents(docs, embedding=embedding)
-retriever = vectorStore.as_retriever(search_kwargs={"k": 3})
+   embedding = OpenAIEmbeddings(api_key = openai_api_key)
+   vectorStore = FAISS.from_documents(docs, embedding=embedding)
+   retriever = vectorStore.as_retriever(search_kwargs={"k": 3})
 
-model = ChatOpenAI(
-    model='gpt-3.5-turbo-1106',
-    temperature=0.7,
-    api_key = openai_api_key
-)
+   model = ChatOpenAI(
+       model='gpt-3.5-turbo-1106',
+       temperature=0.7,
+       api_key = openai_api_key
+   )
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a friendly assistant called Max."),
-    MessagesPlaceholder(variable_name="chat_history"),
-    ("human", "{input}"),
-    MessagesPlaceholder(variable_name="agent_scratchpad")
-])
+   prompt = ChatPromptTemplate.from_messages([
+       ("system", "You are a friendly assistant called Max."),
+       MessagesPlaceholder(variable_name="chat_history"),
+       ("human", "{input}"),
+       MessagesPlaceholder(variable_name="agent_scratchpad")
+   ])
 
-#search = TavilySearchResults()
-st.write(search)
+   search = TavilySearchResults(api_key=tavily_api_key)
+   #st.write(search)
 
-retriever_tools = create_retriever_tool(
-    retriever,
-    "lcel_search",
-    "Use this tool when searching for information about Langchain Expression Language (LCEL)."
-)
-#tools = [search, retriever_tools]
-tools = [retriever_tools]
+   retriever_tools = create_retriever_tool(
+       retriever,
+       "lcel_search",
+       "Use this tool when searching for information about Langchain Expression Language (LCEL)."
+   )
+   tools = [search, retriever_tools]
+   #tools = [retriever_tools]
 
-agent = create_openai_functions_agent(
-    llm=model,
-    prompt=prompt,
-    tools=tools
-)
+   agent = create_openai_functions_agent(
+       llm=model,
+       prompt=prompt,
+       tools=tools
+   )
 
-agentExecutor = AgentExecutor(
-    agent=agent,
-    tools=tools
-)
+   agentExecutor = AgentExecutor(
+       agent=agent,
+       tools=tools
+   )
 
-def process_chat(agentExecutor, user_input, chat_history):
-    response = agentExecutor.invoke({
-        "input": user_input,
-        "chat_history": chat_history
-    })
-    return response["output"]
+   def process_chat(agentExecutor, user_input, chat_history):
+       response = agentExecutor.invoke({
+           "input": user_input,
+           "chat_history": chat_history
+       })
+       return response["output"]
    
-if __name__ == '__main__':
-    chat_history = []
+   if __name__ == '__main__':
+       chat_history = []
     
 # Initialize chat history
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+   if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
 
 # Display chat messages from history on app rerun
-    for message in st.session_state.messages:
+   for message in st.session_state.chat_history:
         with st.chat_message(message["role"]):
              st.markdown(message["content"])
 
 # Accept user input
-    if user_input := st.chat_input("What is up?"):
+   if user_input := st.chat_input("What is up?"):
     # Add user message to chat history
-       st.session_state.messages.append({"role": "user", "content": user_input})
+       st.session_state.chat_history.append({"role": "user", "content": user_input})
+       response = process_chat(agentExecutor, user_input, chat_history)
+       st.session_state.chat_history.append(HumanMessage(content=user_input))
+       st.session_state.chat_history.append(AIMessage(content=response))
+      
     # Display user message in chat message container
        with st.chat_message("user"):
             st.markdown(user_input)
@@ -115,9 +116,9 @@ if __name__ == '__main__':
                 model=st.session_state["openai_model"],
                 messages=[
                     {"role": m["role"], "content": m["content"]}
-                    for m in st.session_state.messages
+                    for m in st.session_state.chat_history
                 ],
                 stream=True,
             )
             response = st.write_stream(stream)
-       st.session_state.messages.append({"role": "assistant", "content": response})
+     st.session_state.messages.append({"role": "assistant", "content": response})
