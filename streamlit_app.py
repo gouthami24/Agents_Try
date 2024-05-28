@@ -79,10 +79,6 @@ def process_chat(agentExecutor, user_input, chat_history):
     #st.write("Response:",response["output"])
     return response["output"]
    
-def submit():
-    st.session_state.my_text = st.session_state.widget
-    st.session_state.widget = ""
-   
 if __name__ == '__main__':
     chat_history = []
     # st.text_input("Enter text here", key="widget", on_change=submit)
@@ -107,11 +103,11 @@ if __name__ == '__main__':
     # Display assistant response in chat message container
        with st.chat_message("assistant"):
             stream = client.chat.completions.create(
-               model=st.session_state["openai_model"],
-               messages=[
-                   {"role": m["role"], "content": m["content"]}
-                   for m in st.session_state.messages
-               ],
+                model=st.session_state["openai_model"],
+                messages=[
+                    {"role": m["role"], "content": m["content"]}
+                    for m in st.session_state.messages
+                ],
             stream=True,
             )
        response = st.write_stream(stream)
