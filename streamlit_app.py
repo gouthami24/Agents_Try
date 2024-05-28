@@ -86,6 +86,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    # Accept user input
    if user_input := st.chat_input("What is up?"):
       response = process_chat(agentExecutor, user_input, st.session_state.chat_history)
+      st.write("response : ",response)
       st.session_state.chat_history.append(HumanMessage(content=user_input))
       st.session_state.chat_history.append(AIMessage(content=response))
       
