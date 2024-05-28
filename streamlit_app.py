@@ -116,7 +116,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            stream = client.chat.completions.create(
                model=st.session_state["openai_model"],
                messages=[
-                   {"role": m["chat_message"], "content": m["content"]}
+                   {"role": m["AIMessage"], "content": m["response"]}
                    for m in st.session_state.chat_history
                ],
                stream=True,
