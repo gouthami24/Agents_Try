@@ -117,5 +117,4 @@ if __name__ == '__main__':
                 stream=True,
             )
             response = st.write_stream(stream)
-            st.write(response)
        st.session_state.messages.append({"role": "assistant", "content": response})
