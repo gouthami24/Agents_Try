@@ -60,7 +60,8 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        "lcel_search",
        "Use this tool when searching for information about Langchain Expression Language (LCEL)."
    )
-   tools = [search, retriever_tools]
+  # tools = [search, retriever_tools]
+   tools = [search]
   
    agent = create_openai_functions_agent(
        llm=model,
