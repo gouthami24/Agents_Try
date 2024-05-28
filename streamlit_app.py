@@ -121,4 +121,4 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
                stream=True,
            )
            response = st.write_stream(stream)
-   st.session_state.messages.append({"role": "assistant", "content": response})
+      st.session_state.messages.append({"role": "assistant", "content": response})
