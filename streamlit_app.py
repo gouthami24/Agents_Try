@@ -93,12 +93,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-# Display chat messages from history on app rerun
-   for message in st.session_state.chat_history:
-        with st.chat_message(message["role"]):
-             st.markdown(message["content"])
-
-# Accept user input
+   # Accept user input
    if user_input := st.chat_input("What is up?"):
     # Add user message to chat history
       #st.session_state.chat_history.append({"role": "user", "content": user_input})
