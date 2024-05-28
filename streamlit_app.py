@@ -23,7 +23,7 @@ if not openai_api_key.startswith('sk-'):
 #if not tavily_api_key.startswith('tvly-'):
 #   st.warning('Please enter your Tavily API key!', icon='⚠')
 
-# Set OpenAI API key from Streamlit secrets
+# Set OpenAI API key from Streamlit secrets 
 client = OpenAI(api_key=st.secrets["openai_api_key"])
    
 
