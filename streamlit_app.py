@@ -80,7 +80,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
 
    # Initialize chat history
    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = []
+       st.session_state.chat_history = []
 
    # Accept user input
    if user_input := st.chat_input("What is up?"):
