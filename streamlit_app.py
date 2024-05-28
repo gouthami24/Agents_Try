@@ -28,7 +28,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    client = OpenAI(api_key=openai_api_key)
    
    if "openai_model" not in st.session_state:
-       st.session_state["openai_model"] = "gpt-3.5-turbo"
+       st.session_state["openai_model"] = "gpt-3.5-turbo-1106"
 
 # Create Retriever
    loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
