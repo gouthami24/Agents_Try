@@ -51,19 +51,15 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        MessagesPlaceholder(variable_name="agent_scratchpad")
    ])
 
-   #st.write("tavily API key" , tavily_api_key)
    search = TavilySearchResults(api_key=tavily_api_key)
-   #search.invoke({"query": "What happened in the latest burning man floods"})
-   #st.write("tavily search result" , type(search))
-   
+
    retriever_tools = create_retriever_tool(
        retriever,
        "lcel_search",
        "Use this tool when searching for information about Langchain Expression Language (LCEL)."
    )
    tools = [search, retriever_tools]
-   #tools = [search]
-  
+   
    agent = create_openai_functions_agent(
        llm=model,
        prompt=prompt,
@@ -80,7 +76,6 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            "input": user_input,
            "chat_history": chat_history
        })
-       #st.write("Process Chat Response" , response)
        return response["output"]
 
    # Initialize chat history
