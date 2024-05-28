@@ -22,6 +22,9 @@ if not openai_api_key.startswith('sk-'):
 #if not tavily_api_key.startswith('tvly-'):
 #   st.warning('Please enter your Tavily API key!', icon='⚠')
 
+# Set OpenAI API key from Streamlit secrets
+client = OpenAI(api_key=st.secrets["openai_api_key"])
+   
 
 # Create Retriever
 loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
@@ -82,7 +85,7 @@ def process_chat(agentExecutor, user_input, chat_history):
 if __name__ == '__main__':
     chat_history = []
     # st.text_input("Enter text here", key="widget", on_change=submit)
-   
+
 # Initialize chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
