@@ -110,4 +110,4 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        if isinstance(message, HumanMessage):
          st.write(f"You: {message.content}")
        elif isinstance(message, AIMessage):
-         st.write(f"Assistant: {message.content}" 
+         st.write(f"Assistant: {message.content}") 
