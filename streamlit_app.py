@@ -26,6 +26,8 @@ if not openai_api_key.startswith('sk-'):
 # Set OpenAI API key from Streamlit secrets 
 client = OpenAI(api_key=openai_api_key)
    
+if "openai_model" not in st.session_state:
+    st.session_state["openai_model"] = "gpt-3.5-turbo"
 
 # Create Retriever
 loader = WebBaseLoader("https://python.langchain.com/docs/expression_language/")
