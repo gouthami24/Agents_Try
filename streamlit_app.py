@@ -1,5 +1,6 @@
 #import os
 import streamlit as st
+from openai import OpenAI
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 from langchain.agents import create_openai_functions_agent, AgentExecutor
@@ -23,7 +24,7 @@ if not openai_api_key.startswith('sk-'):
 #   st.warning('Please enter your Tavily API key!', icon='⚠')
 
 # Set OpenAI API key from Streamlit secrets
-client = ChatOpenAI(api_key=st.secrets["openai_api_key"])
+client = OpenAI(api_key=st.secrets["openai_api_key"])
    
 
 # Create Retriever
