@@ -15,10 +15,10 @@ from langchain.tools.retriever import create_retriever_tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 from dotenv import load_dotenv, find_dotenv
 
-_= load_dotenv(find_dotenv())
-myvar = os.getenv('TAVILY_API_KEY')
+#_= load_dotenv(find_dotenv())
+#myvar = os.getenv('TAVILY_API_KEY')
 openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
-print(myvar)
+#print(myvar)
 tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 
 if not openai_api_key.startswith('sk-'):
