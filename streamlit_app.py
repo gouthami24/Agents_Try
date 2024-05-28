@@ -60,7 +60,7 @@ prompt = ChatPromptTemplate.from_messages([
     MessagesPlaceholder(variable_name="agent_scratchpad")
 ])
 
-search = TavilySearchResults()
+#search = TavilySearchResults()
 st.write(search)
 
 retriever_tools = create_retriever_tool(
@@ -68,8 +68,8 @@ retriever_tools = create_retriever_tool(
     "lcel_search",
     "Use this tool when searching for information about Langchain Expression Language (LCEL)."
 )
-tools = [search, retriever_tools]
-#tools = [retriever_tools]
+#tools = [search, retriever_tools]
+tools = [retriever_tools]
 
 agent = create_openai_functions_agent(
     llm=model,
