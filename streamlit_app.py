@@ -53,7 +53,8 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
 
    st.write("tavily API key" , tavily_api_key)
    search = TavilySearchResults(api_key = tavily_api_key)
-   #st.write("tavily search result" , search)
+   search.invoke({"query": "What happened in the latest burning man floods"})
+   st.write("tavily search result" , search)
    
    retriever_tools = create_retriever_tool(
        retriever,
