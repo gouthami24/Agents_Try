@@ -111,16 +111,15 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            st.markdown(user_input)
 
     # Display assistant response in chat message container
-    with st.chat_message("assistant"):
-        stream = client.chat_completions.create(
-            model=st.session_state["openai_model"],
-            messages=[
-                {"role": "user" if isinstance(m, HumanMessage) else "assistant", "content": m.content}
-                for m in st.session_state.chat_history
-            ],
-            stream=True,
-        )
-        response = ''.join([chunk['choices'][0]['delta'].get('content', '') for chunk in stream])
-        st.markdown(response)
-
-      st.session_state.messages.append({"role": "assistant", "content": response})
+      with st.chat_message("assistant"):
+          stream = client.chat_completions.create(
+              model=st.session_state["openai_model"],
+              messages=[
+                  {"role": "user" if isinstance(m, HumanMessage) else "assistant", "content": m.content}
+                  for m in st.session_state.chat_history
+              ],
+              stream=True,
+          )
+          response = ''.join([chunk['choices'][0]['delta'].get('content', '') for chunk in stream])
+          st.markdown(response)
+      st.session_state.chat_history.append(AIMessage(content=response))
