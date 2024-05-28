@@ -93,5 +93,5 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
          st.write(f"You: {message.content}")
        elif isinstance(message, AIMessage):
          st.write(f"Assistant: {message.content}") 
-else 
+else:
    st.warning('Please enter your API Key & Tavily API key!', icon='⚠')
