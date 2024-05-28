@@ -77,6 +77,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            "input": user_input,
            "chat_history": chat_history
        })
+       st.write("Process Chat Response" , response)
        return response["output"]
 
    # Initialize chat history
