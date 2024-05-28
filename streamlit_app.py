@@ -23,7 +23,7 @@ if not openai_api_key.startswith('sk-'):
 #   st.warning('Please enter your Tavily API key!', icon='⚠')
 
 # Set OpenAI API key from Streamlit secrets
-client = OpenAI(api_key=st.secrets["openai_api_key"])
+client = ChatOpenAI(api_key=st.secrets["openai_api_key"])
    
 
 # Create Retriever
