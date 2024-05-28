@@ -51,7 +51,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
        MessagesPlaceholder(variable_name="agent_scratchpad")
    ])
 
-   #st.write("tavily API key" , tavily_api_key)
+   st.write("tavily API key" , tavily_api_key)
    search = TavilySearchResults(api_key = tavily_api_key)
    #st.write("tavily search result" , search)
    
