@@ -107,16 +107,16 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
       st.session_state.chat_history.append(AIMessage(content=response))
       
     # Display user message in chat message container
-       with st.chat_message("user"):
-            st.markdown(user_input)
+      with st.chat_message("user"):
+           st.markdown(user_input)
 
     # Display assistant response in chat message container
-       with st.chat_message("assistant"):
-            stream = client.chat.completions.create(
-                model=st.session_state["openai_model"],
-                messages=[
-                    {"role": m["role"], "content": m["content"]}
-                    for m in st.session_state.chat_history
+      with st.chat_message("assistant"):
+           stream = client.chat.completions.create(
+               model=st.session_state["openai_model"],
+               messages=[
+                   {"role": m["role"], "content": m["content"]}
+                   for m in st.session_state.chat_history
                 ],
                 stream=True,
             )
