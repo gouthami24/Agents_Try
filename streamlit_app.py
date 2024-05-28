@@ -13,8 +13,12 @@ from langchain.chains import create_retrieval_chain
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain.tools.retriever import create_retriever_tool
 from langchain_community.tools.tavily_search import TavilySearchResults
+from dotenv import load_dotenv, find_dotenv
 
+_= load_dotenv(find_dotenv())
+myvar = os.getenv('TAVILY_API_KEY')
 openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
+print(myvar)
 tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 
 if not openai_api_key.startswith('sk-'):
@@ -22,7 +26,7 @@ if not openai_api_key.startswith('sk-'):
 
 if not tavily_api_key.startswith('tvly-'):
    st.warning('Please enter your Tavily API key!', icon='⚠')
-st.write("Your Tavily API Key is ",tavily_api_key)
+
 # Set OpenAI API key from Streamlit secrets 
 client = OpenAI(api_key=openai_api_key)
    
@@ -64,8 +68,8 @@ retriever_tools = create_retriever_tool(
     "lcel_search",
     "Use this tool when searching for information about Langchain Expression Language (LCEL)."
 )
-#tools = [search, retriever_tools]
-tools = [retriever_tools]
+tools = [search, retriever_tools]
+#tools = [retriever_tools]
 
 agent = create_openai_functions_agent(
     llm=model,
