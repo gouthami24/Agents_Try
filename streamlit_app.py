@@ -52,7 +52,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    ])
 
    search = TavilySearchResults(api_key = tavily_api_key)
-   st.write("tavily search result" , search)
+   #st.write("tavily search result" , search)
    
    retriever_tools = create_retriever_tool(
        retriever,
@@ -86,7 +86,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    # Accept user input
    if user_input := st.chat_input("What is up?"):
       response = process_chat(agentExecutor, user_input, st.session_state.chat_history)
-      st.write("response : ",response)
+      #st.write("response : ",response)
       st.session_state.chat_history.append(HumanMessage(content=user_input))
       st.session_state.chat_history.append(AIMessage(content=response))
       
