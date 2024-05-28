@@ -122,4 +122,4 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
            )
            response = ''.join([chunk['choices'][0]['delta'].get('content', '') for chunk in stream])
            st.markdown(response)
-       st.session_state.chat_history.append(AIMessage(content=response))
+      st.session_state.chat_history.append(AIMessage(content=response))
