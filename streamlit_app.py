@@ -12,6 +12,8 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain.tools.retriever import create_retriever_tool
 from langchain_community.tools.tavily_search import TavilySearchResults
 
+st.title("Agents Implementation - Chat Assistant")
+
 openai_api_key = st.sidebar.text_input('OpenAI API Key', type='password')
 tavily_api_key = st.sidebar.text_input('Tavily API Key', type='password')
 
