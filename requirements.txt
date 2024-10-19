@@ -9,3 +9,4 @@ scikit-learn
 langchain_text_splitters
 beautifulsoup4
 tavily-python
+requests
