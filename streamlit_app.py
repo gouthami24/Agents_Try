@@ -29,7 +29,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    docs = loader.load()
 
    splitter = RecursiveCharacterTextSplitter(
-       chunk_size=200,
+       chunk_size=100,
        chunk_overlap=20
    )
    splitDocs = splitter.split_documents(docs)
