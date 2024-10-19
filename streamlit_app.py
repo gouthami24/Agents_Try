@@ -35,7 +35,7 @@ elif openai_api_key.startswith('sk-') and tavily_api_key:
    splitDocs = splitter.split_documents(docs)
 
    embedding = OpenAIEmbeddings(api_key = openai_api_key)
-   vectorStore = FAISS.from_documents(docs, embedding=embedding)
+   vectorStore = FAISS.from_documents(splitDocs, embedding=embedding)
    retriever = vectorStore.as_retriever(search_kwargs={"k": 3})
 
    model = ChatOpenAI(
